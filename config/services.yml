@@ -1,0 +1,27 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    davidiq.forumapi.controller:
+        class: davidiq\forumapi\controller\main
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+
+    davidiq.forumapi.service:
+        class: davidiq\forumapi\service
+        arguments:
+            - '@user'
+            - '%davidiq.forumapi.tables.demo_table%'
+
+    davidiq.forumapi.listener:
+        class: davidiq\forumapi\event\main_listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }
