@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * phpBB Forum API. An extension for the phpBB Forum Software package.
+ * Forum API. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2017, David Colón, https://www.davidiq.com
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -19,5 +19,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_DEMO_TITLE'			=> 'Demo Module',
+	'ACP_FORUMAPI_TITLE'			=> 'Forum API',
+	'ACP_FORUMAPI'					=> 'Settings',
 ));

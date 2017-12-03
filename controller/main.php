@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * phpBB Forum API. An extension for the phpBB Forum Software package.
+ * Forum API. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2017, David Colón, https://www.davidiq.com
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -10,8 +10,10 @@
 
 namespace davidiq\forumapi\controller;
 
+use phpbb\exception\http_exception;
+
 /**
- * phpBB Forum API main controller.
+ * Forum API main controller.
  */
 class main
 {
@@ -44,17 +46,21 @@ class main
 	}
 
 	/**
-	 * Demo controller for route /demo/{name}
+	 * Controller for route /forumapi/userinfo
 	 *
-	 * @param string $name
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	 * @throws http_exception
 	 */
-	public function handle($name)
+	public function userinfo()
 	{
-		$l_message = !$this->config['acme_demo_goodbye'] ? 'DEMO_HELLO' : 'DEMO_GOODBYE';
-		$this->template->assign_var('DEMO_MESSAGE', $this->user->lang($l_message, $name));
+		if (!$this->config['forumapi_userinfo'])
+		{
+			throw new http_exception(503, 'FORUMAPI_UNAUTHORIZED');
+		}
 
-		return $this->helper->render('demo_body.html', $name);
+		$json = new \phpbb\json_response();
+		$json->send(array(
+			'username'	=> $this->user->data['username'],
+			'user_id'	=> $this->user->data['user_id'],
+		));
 	}
 }

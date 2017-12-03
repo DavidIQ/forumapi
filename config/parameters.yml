@@ -1,2 +1,0 @@
-parameters:
-    davidiq.forumapi.tables.demo_table: '%core.table_prefix%demo_table'

@@ -1,10 +1,10 @@
-# phpBB Forum API
+# Forum API
 
 ## Installation
 
 Copy the extension to phpBB/ext/davidiq/forumapi
 
-Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB Forum API" extension.
+Go to "ACP" > "Customise" > "Extensions" and enable the "Forum API" extension.
 
 ## License
 

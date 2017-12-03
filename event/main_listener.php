@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * phpBB Forum API. An extension for the phpBB Forum Software package.
+ * Forum API. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2017, David Colón, https://www.davidiq.com
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -16,18 +16,15 @@ namespace davidiq\forumapi\event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * phpBB Forum API Event listener.
+ * Forum API Event listener.
  */
 class main_listener implements EventSubscriberInterface
 {
 	static public function getSubscribedEvents()
 	{
-		return array(
-			'core.display_forums_modify_template_vars'	=> 'display_forums_modify_template_vars',
+		return [
 			'core.user_setup'				=> 'load_language_on_setup',
-			'core.page_header'				=> 'add_page_header_link',
-			'core.viewonline_overwrite_location'	=> 'viewonline_page',
-		);
+		];
 	}
 
 	/* @var \phpbb\controller\helper */
@@ -71,42 +68,5 @@ class main_listener implements EventSubscriberInterface
 			'lang_set' => 'common',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
-	}
-
-	/**
-	 * Add a link to the controller in the forum navbar
-	 */
-	public function add_page_header_link()
-	{
-		$this->template->assign_vars(array(
-			'U_DEMO_PAGE'	=> $this->helper->route('davidiq_forumapi_controller', array('name' => 'world')),
-		));
-	}
-
-	/**
-	 * Show users viewing Acme Demo on the Who Is Online page
-	 *
-	 * @param \phpbb\event\data	$event	Event object
-	 */
-	public function viewonline_page($event)
-	{
-		if ($event['on_page'][1] === 'app' && strrpos($event['row']['session_page'], 'app.' . $this->php_ext . '/demo') === 0)
-		{
-			$event['location'] = $this->user->lang('VIEWING_ACME_DEMO');
-			$event['location_url'] = $this->helper->route('davidiq_forumapi_controller', array('name' => 'world'));
-		}
-	}
-
-	/**
-	 * A sample PHP event
-	 * Modifies the names of the forums on index
-	 *
-	 * @param \phpbb\event\data	$event	Event object
-	 */
-	public function display_forums_modify_template_vars($event)
-	{
-		$forum_row = $event['forum_row'];
-		$forum_row['FORUM_NAME'] .= ' :: Acme Event ::';
-		$event['forum_row'] = $forum_row;
 	}
 }

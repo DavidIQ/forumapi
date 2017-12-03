@@ -19,5 +19,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'FORUMAPI_UNAUTHORIZED'		=> 'API route is not authorized',
+	'ACP_FORUMAPI_USERINFO'			=> 'Enable user information API',
+	'ACP_FORUMAPI_SETTING_SAVED'	=> 'Settings have been saved successfully!',
 ));
